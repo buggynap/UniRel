@@ -8,11 +8,14 @@ public class unirel {
 		
 		//Generate the two relations
 		
-		relationGenerator relation1 = new relationGenerator("table1", 4, 10);
-		relation1.generateRelation(15);
+		relationGenerator relation1 = new relationGenerator(4);
+		relation1.generateRelation("table1", 10, 15);
+		relation1.generateRelation("table2", 100, 15);
 		
-		relationGenerator relation2 = new relationGenerator("table1", 4, 10);
-		relation2.generateRelation(15);
+		/*relationGenerator relation2 = new relationGenerator("table2", 2, 100);
+		relation2.generateRelation(15);*/
+		
+		System.out.println(relation1.getSizeOfRecord());
 		
 	}
 
