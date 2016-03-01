@@ -146,5 +146,10 @@ public class relationGenerator {
 		
 		return this.sizeOfRecord;		
 	}
+	
+	public int getNumberOfAttributes() {
+		
+		return colMetaDataPair.size();
+	}
 }
 
