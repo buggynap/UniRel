@@ -71,7 +71,7 @@ public class relationGenerator {
 		//	Generate the relation as per the random metadata generated
 		
 		FileWriter relationWriter = new FileWriter(new File(this.relationName));
-		int currentRelationSize = 0, recordCounter = 0;
+		long currentRelationSize = 0, recordCounter = 0;
 		String characters = null;
 		List <String> records = new ArrayList <String>();
 		ArrayList<Integer> list = new ArrayList<Integer>();
@@ -129,7 +129,7 @@ public class relationGenerator {
 					records.add(records.get(list.get(k)));
 				}
 				//Write to the file
-				for(int k = 0; k < 100 + duplicationCount; k++) {
+				for(int k = 0; k < 100 + duplicationCount && currentRelationSize < this.sizeOfRelation; k++) {
 					relationWriter.write(records.get(k) + "\n");
 					currentRelationSize += sizeOfRecord;
 				}
@@ -137,6 +137,7 @@ public class relationGenerator {
 				recordCounter = 0;
 			} else {
 				records.add(record.toString());
+				record.setLength(0);
 			}
 		}
 		relationWriter.close();
