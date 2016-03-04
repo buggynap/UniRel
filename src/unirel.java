@@ -25,10 +25,10 @@ public class unirel {
 		//Generate the two relations
 		relationGenerator relation1 = new relationGenerator(4);
 		System.out.print("Generating relation1...");
-		relation1.generateRelation("table1", 50, 15);
+		relation1.generateRelation("table1", 5, 15);
 		System.out.println("[OK]");
 		System.out.print("Generating relation2...");
-		relation1.generateRelation("table2", 50, 15);
+		relation1.generateRelation("table2", 500 , 15);
 		System.out.println("[OK]");
 		sizeOfRecord = relation1.getSizeOfRecord();
 		
@@ -45,16 +45,15 @@ public class unirel {
 		System.out.print("Method detected...");
 		
 		if(typeOfIndex.compareToIgnoreCase("HASH") == 0) {
-			
 			System.out.print("[HASH]");
-			HashedUnion hu = new HashedUnion();
-			hu.union(relation1, relation2, noOfAttributes, blockSize, unirel.sizeOfRecord);
+			hashedUnion hu = new hashedUnion();
+			hu.union(relation1, relation2, noOfAttributes, blockSize, unirel.sizeOfRecord, 36);
 			
 		} else {
 			
 			System.out.print("[B+ TREE]");
 			BTreeUnion bu = new BTreeUnion();
-			bu.union(relation1, relation2, noOfAttributes, blockSize, unirel.sizeOfRecord);
+			//bu.union(relation1, relation2, noOfAttributes, blockSize, unirel.sizeOfRecord);
 			
 		}
 	}

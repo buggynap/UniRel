@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-
 public class relationGenerator {
 	
 	private int noOfColumns;
@@ -65,7 +64,7 @@ public class relationGenerator {
 	
 	public void generateRelation(String relationName, int sizeOfRelation, int duplicationCount) throws IOException {
 		
-		this.sizeOfRelation = sizeOfRelation * 1024 * 1024;
+		this.sizeOfRelation = sizeOfRelation * 1000 * 1000;
 		this.relationName = relationName;
 		
 		//	Generate the relation as per the random metadata generated
@@ -131,7 +130,7 @@ public class relationGenerator {
 				//Write to the file
 				for(int k = 0; k < 100 + duplicationCount && currentRelationSize < this.sizeOfRelation; k++) {
 					relationWriter.write(records.get(k) + "\n");
-					currentRelationSize += sizeOfRecord;
+					currentRelationSize += records.get(k).length() + 1;
 				}
 				records.clear();
 				recordCounter = 0;
@@ -153,4 +152,3 @@ public class relationGenerator {
 		return colMetaDataPair.size();
 	}
 }
-
