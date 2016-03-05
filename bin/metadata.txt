@@ -1,0 +1,4 @@
+col1,int
+col2,int
+col3,date
+col4,int

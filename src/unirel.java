@@ -9,26 +9,28 @@ public class unirel {
 		//	Check for the command line arguments
 		
 		// 	M - Block size; should always less than 1 MB
-		int M = 1; // MB
+		int M = 1, noOfBlocks = 0; // MB
 		String typeOfIndex = null;
 		
-		if(args.length != 2) {
-			System.out.println("unirel <BLOCK_SIZE> <TYPE_OF_INDEX>");
+		if(args.length != 3) {
+			System.out.println("unirel <BLOCK_SIZE(MB)> <NO_OF_BLOCKS> <TYPE_OF_INDEX>");
 			System.exit(0);
 		}
 		
 		M = Integer.parseInt(args[0]);
-		typeOfIndex = args[1];
+		noOfBlocks = Integer.parseInt(args[1]);
+		noOfBlocks = 36;
+		typeOfIndex = args[2];
 		
 		long startTime = System.currentTimeMillis();
 		
 		//Generate the two relations
 		relationGenerator relation1 = new relationGenerator(4);
 		System.out.print("Generating relation1...");
-		relation1.generateRelation("table1", 5, 15);
+		relation1.generateRelation("table1", 10, 15);
 		System.out.println("[OK]");
 		System.out.print("Generating relation2...");
-		relation1.generateRelation("table2", 500 , 15);
+		relation1.generateRelation("table2", 10, 15);
 		System.out.println("[OK]");
 		sizeOfRecord = relation1.getSizeOfRecord();
 		

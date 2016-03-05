@@ -13,7 +13,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-
 public class hashedUnion {
 	
 	private static long currentFilePointerPosition = 0;
@@ -24,7 +23,7 @@ public class hashedUnion {
 	public void union(String relation1, String relation2, int noOfAttributes, int blockSize, int sizeOfRecord, int noOfBuffers) throws IOException {
 		
 		//process first relation
-		noOfRecordsInM = blockSize / sizeOfRecord;
+		noOfRecordsInM = (blockSize * 1000 * 1000) / sizeOfRecord;
 		RandomAccessFile rafPointer = open(relation1);
 		processrelation(rafPointer, noOfBuffers, blockSize);
 		close(rafPointer);
@@ -129,20 +128,29 @@ public class hashedUnion {
 		    bfrBucket.close();
 		    entry.getValue().clear();
 		}
+		recordsInSingleBlock.clear();
 	}
 
 
 	private List <String> getNext(RandomAccessFile rafPointer, int blockSize) throws IOException {
 		
+		long startTime = System.currentTimeMillis();
+		
 		List <String> loadRecordsOfSizeM = new ArrayList<String>();
 		String line = null;
+		int currentSize = 0;
 		
 		rafPointer.seek(currentFilePointerPosition);
 		
 		while((line = rafPointer.readLine()) != null) {
 			loadRecordsOfSizeM.add(line);
 			currentFilePointerPosition += line.length() + 1;
+			currentSize += line.length() + 1;
+			if(currentSize >= blockSize * 1000 * 1000)
+				break;
 		}
+		long endTime = System.currentTimeMillis();
+		System.out.println("Time taken : " + (endTime - startTime));
 		return loadRecordsOfSizeM;
 	}
 
